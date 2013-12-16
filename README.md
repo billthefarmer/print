@@ -1,4 +1,4 @@
-what-o-clock
+What-o-clock
 ============
 
 Extremely useful clock display
