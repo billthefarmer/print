@@ -31,6 +31,17 @@ $(document).ready(function() {
 
     $("input[type=time]").width(width / 8);
 
+    // Get year
+
+    var now = new Date();
+    var year = now.getFullYear();
+
+    // Fix copyright
+
+    $('#copy').empty();
+    $('#copy').append('<p>Copyright &copy; ' + year +
+		      ' Bill Farmer</p>');
+    
     // Set the time
 
     function setTime() {
@@ -227,7 +238,7 @@ $(document).ready(function() {
 	  <input id="done-help" type="button" value="Done" />
 	</div>
       </div>
-      <p>Copyright &copy; 2013 Bill Farmer</p>
+      <p id="copy">Copyright &copy; 2013 Bill Farmer</p>
     </div>
   </body>
 </html>
