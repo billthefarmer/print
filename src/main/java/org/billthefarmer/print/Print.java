@@ -59,9 +59,12 @@ public class Print extends Activity
 
     public static final String TEXT_PLAIN = "text/plain";
     public static final String TEXT_HTML = "text/html";
+    public static final String TEXT_WILD = "text/*";
 
     public static final String ASSET_URL =
         "file:///android_asset/print.html";
+
+    private static final int OPEN_DOCUMENT   = 1;
 
     private WebView webView;
     private String htmlText;
@@ -193,6 +196,11 @@ public class Print extends Activity
             print();
             break;
 
+            // Open
+        case R.id.action_open:
+            open();
+            break;
+
             // Share
         case R.id.action_share:
             share();
@@ -222,6 +230,23 @@ public class Print extends Activity
             finish();
     }
 
+    // onActivityResult
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data)
+    {
+        if (resultCode == RESULT_CANCELED)
+            return;
+
+        switch (requestCode)
+        {
+        case OPEN_DOCUMENT:
+            Uri uri = data.getData();
+            readFile(uri);
+            break;
+        }
+    }
+
     // readFile
     private void readFile(Uri uri)
     {
@@ -234,6 +259,14 @@ public class Print extends Activity
 
         else
             webView.loadUrl(url);
+    }
+
+    private void open()
+    {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.setType(TEXT_WILD);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        startActivityForResult(intent, OPEN_DOCUMENT);
     }
 
     // loadText

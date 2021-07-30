@@ -8,6 +8,12 @@
         android:title="@string/print" />
 
   <item
+        android:id="@+id/action_open"
+        android:icon="@drawable/ic_action_collection"
+        android:showAsAction="ifRoom"
+        android:title="@string/open" />
+
+  <item
         android:id="@+id/action_share"
         android:icon="@drawable/ic_action_share"
         android:showAsAction="ifRoom"
