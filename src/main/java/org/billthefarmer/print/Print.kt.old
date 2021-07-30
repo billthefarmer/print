@@ -1,0 +1,337 @@
+//  Oglaf - NS(generally)FW
+//
+//  Copyright (C) 2019	Bill Farmer
+//
+//  This program is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  This program is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+package org.billthefarmer.print
+
+import android.app.Activity
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.Intent
+import android.net.Uri
+import android.os.AsyncTask
+import android.os.Bundle
+import android.print.PrintDocumentAdapter
+import android.print.PrintAttributes
+import android.print.PrintManager
+import android.text.method.LinkMovementMethod
+import android.text.SpannableStringBuilder
+import android.view.Menu
+import android.view.MenuItem
+import android.webkit.URLUtil
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import android.widget.TextView
+
+import java.io.BufferedReader
+import java.io.InputStreamReader
+
+import java.lang.ref.WeakReference
+
+import java.text.DateFormat
+
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+
+const val HTML_HEAD =
+    "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n" +
+"<meta name=\"viewport\" content=\"width=device-width, " +
+"initial-scale=1.0\">\n</head>\n<body>\n"
+const val HTML_TAIL = "\n</body>\n</html>\n"
+const val ANDROID_ASSET = "file:///android_asset/"
+const val UTF_8 = "utf-8"
+
+const val TEXT_PLAIN = "text/plain"
+const val TEXT_HTML = "text/html"
+
+class Print: Activity()
+{
+    lateinit var webView: WebView
+
+    // Called when the activity is first created.
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
+        super.onCreate(savedInstanceState)
+
+        setContentView(R.layout.main)
+
+        webView = findViewById(R.id.webview)
+
+        // Enable javascript, web sites don't work unless JavaScript
+        // is enabled
+        val settings  = webView.getSettings()
+        settings.setJavaScriptEnabled(true)
+
+        // Enable zoom
+        settings.setBuiltInZoomControls(true)
+        settings.setDisplayZoomControls(false)
+
+        // Follow links and set title
+        webView.setWebViewClient(object: WebViewClient()
+        {
+            // onPageFinished
+            override fun onPageFinished(view: WebView, url: String)
+            {
+                // Get page title
+                if (view.getTitle() != null)
+                setTitle(view.getTitle())
+
+                if (view.canGoBack())
+                getActionBar()?.setDisplayHomeAsUpEnabled(true)
+
+                else
+                getActionBar()?.setDisplayHomeAsUpEnabled(false)
+            }
+        })
+
+        if (savedInstanceState != null)
+        {
+            // Restore state
+            webView.restoreState(savedInstanceState)
+        }
+
+        else
+        {
+            val intent = getIntent()
+            when (intent.getAction())
+            {
+                Intent.ACTION_VIEW  ->
+                    {
+                        val uri = intent.getData()
+                        if (uri != null)
+                        {
+                            readFile(uri)
+                        }
+                    }
+
+                Intent.ACTION_SEND ->
+                    {
+                        // Get uri
+                        val uri: Uri? =
+                            intent.getParcelableExtra(Intent.EXTRA_STREAM)
+                        val html = intent.getStringExtra(Intent.EXTRA_HTML_TEXT)
+                        val text = intent.getStringExtra(Intent.EXTRA_TEXT)
+                        if (uri != null)
+                        {
+                            readFile(uri)
+                        }
+
+                        else if (html != null)
+                        {
+                            loadText(html)
+                        }
+
+                        else if (text != null)
+                        {
+                            loadText(text)
+                        }
+                    }
+                else -> {} 
+            }
+        }
+    }
+
+    // On save instance state
+    override fun onSaveInstanceState(outState: Bundle)
+    {
+        super.onSaveInstanceState(outState)
+
+        // Save state
+        webView.saveState(outState)
+    }
+
+    // On create option menu
+    override fun onCreateOptionsMenu(menu: Menu): Boolean
+    {
+        // Inflate the menu; this adds items to the action bar if it
+        // is present.
+        getMenuInflater().inflate(R.menu.main, menu)
+        return true;
+    }
+
+    // On options item
+    override fun onOptionsItemSelected(item: MenuItem): Boolean
+    {
+        // Get id
+
+        val id = item.getItemId()
+        when (id)
+        {
+            // Home
+            android.R.id.home ->
+            // Back navigation
+            if (webView.canGoBack())
+                webView.goBack()
+
+            else
+                finish()
+
+            // Refresh
+            R.id.action_print ->
+            print()
+
+            // Share
+            R.id.action_share ->
+            share()
+
+            // About
+            R.id.action_about ->
+            about()
+
+        else ->
+            return false;
+        }
+
+        return true;
+    }
+
+    // On back pressed
+    override fun onBackPressed()
+    {
+        // Back navigation
+        if (webView.canGoBack())
+            webView.goBack()
+
+        else
+            finish()
+    }
+
+    // readFile
+    private fun readFile(uri: Uri)
+    {
+        val url = uri.toString()
+        if (URLUtil.isContentUrl(url)) {}
+
+        else
+        {
+            webView.loadUrl(url)
+        }
+    }
+
+    // loadText
+    private fun loadText(text: String)
+    {
+        webView.loadDataWithBaseURL(ANDROID_ASSET,
+                                    HTML_HEAD + text + HTML_TAIL,
+                                    TEXT_HTML, UTF_8, null)
+    }
+
+    // print
+    private fun print()
+    {
+        // Get a PrintManager instance
+        val printManager = getSystemService(PRINT_SERVICE) as? PrintManager
+
+        val jobName = "{getString(R.string.app_name)} Document";
+
+        // Get a print adapter instance
+        val printAdapter = webView.createPrintDocumentAdapter(jobName);
+
+        // Create a print job with name and adapter instance
+        printManager?.print(jobName, printAdapter,
+                           PrintAttributes.Builder().build())
+    }
+
+    // share
+    private fun share()
+    {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.setType(TEXT_PLAIN)
+        val title =
+            String.format("%s: %s", getString(R.string.appName), getTitle())
+        intent.putExtra(Intent.EXTRA_TITLE, title)
+        intent.putExtra(Intent.EXTRA_SUBJECT, title)
+        intent.putExtra(Intent.EXTRA_TEXT, webView.getUrl())
+        startActivity(Intent.createChooser(intent, null))
+    }
+
+    // about
+    private fun about()
+    {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(R.string.appName)
+
+        val dateFormat = DateFormat.getDateTimeInstance()
+        val spannable = SpannableStringBuilder(getText(R.string.version))
+        val pattern = Pattern.compile("%s")
+        val matcher = pattern.matcher(spannable)
+        if (matcher.find())
+            spannable.replace(matcher.start(), matcher.end(),
+                              BuildConfig.VERSION_NAME)
+        matcher.reset(spannable)
+        if (matcher.find())
+            spannable.replace(matcher.start(), matcher.end(),
+                              dateFormat.format(BuildConfig.BUILT))
+        builder.setMessage(spannable)
+
+        // Add the button
+        builder.setPositiveButton(android.R.string.ok, null)
+
+        // Create the AlertDialog
+        val dialog = builder.show()
+
+        // Set movement method
+        val text: TextView = dialog.findViewById(android.R.id.message)
+        text.setMovementMethod(LinkMovementMethod.getInstance())
+    }
+
+    private class ReadTask(p: Print): AsyncTask<Uri, Void, CharSequence>()
+    {
+        var printWeakReference: WeakReference<Print>
+
+        init
+        {
+            printWeakReference = WeakReference<Print>(p)
+        }
+
+        override fun doInBackground(vararg uris: Uri): CharSequence
+        {
+            val stringBuilder = StringBuilder()
+            val p = printWeakReference.get()
+            if (p == null)
+            {
+                return stringBuilder
+            }
+
+            val reader: BufferedReader
+            try
+            {
+                reader = BufferedReader(InputStreamReader(
+                                            p.getContentResolver()
+                                                .openInputStream(uris[0])))
+                var line: String;
+                while ((line = reader.readLine()) != null)
+                {
+                    stringBuilder.append(line);
+                    stringBuilder.append(System.getProperty("line.separator"));
+                }
+            }
+
+            catch (e: Exception)
+            {
+                e.printStackTrace()
+            }
+
+            finally
+            {
+                reader.close()
+            }
+
+            return stringBuilder
+        }
+    }
+}

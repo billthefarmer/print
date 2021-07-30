@@ -1,4 +1,3 @@
-What-o-clock
-============
+# Print
 
-Extremely useful clock display
+Extremely useful print utility
