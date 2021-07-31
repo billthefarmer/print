@@ -29,6 +29,7 @@ import android.print.PrintDocumentAdapter;
 import android.print.PrintManager;
 import android.text.SpannableStringBuilder;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,9 +40,11 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.commonmark.Extension;
 import org.commonmark.node.*;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
+import org.commonmark.ext.autolink.AutolinkExtension;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -50,11 +53,15 @@ import java.lang.ref.WeakReference;
 
 import java.text.DateFormat;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Print extends Activity
 {
+    public static final String TAG = "Print";
+
     public static final String HTML_HEAD =
         "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"utf-8\">\n" +
         "<meta name=\"viewport\" content=\"width=device-width, " +
@@ -294,9 +301,12 @@ public class Print extends Activity
     private void loadText(String text)
     {
         // Use commonmark
-        Parser parser = Parser.builder().build();
+        List<Extension> extensions =
+            Arrays.asList(AutolinkExtension.create());
+        Parser parser = Parser.builder().extensions(extensions).build();
         Node document = parser.parse(text);
-        HtmlRenderer renderer = HtmlRenderer.builder().build();
+        HtmlRenderer renderer = HtmlRenderer.builder()
+            .extensions(extensions).build();
 
         String html = renderer.render(document);
 
