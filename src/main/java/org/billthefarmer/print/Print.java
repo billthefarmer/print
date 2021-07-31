@@ -150,15 +150,26 @@ public class Print extends Activity
                         readFile(uri);
 
                     else if (html != null)
-                        loadText(html);
+                    {
+                        if (URLUtil.isNetworkUrl(html))
+                            webView.loadUrl(html);
+
+                        else
+                            loadText(html);
+                    }
 
                     else if (text != null)
-                        loadText(text);
+                    {
+                        if (URLUtil.isNetworkUrl(text))
+                            webView.loadUrl(text);
 
+                        else
+                            loadText(text);
+                    }
                     break;
                 }
-                default:
-                    webView.loadUrl(ASSET_URL);
+                    default:
+                        webView.loadUrl(ASSET_URL);
                 }
             }
         }
