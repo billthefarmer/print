@@ -24,17 +24,19 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.print.PrintDocumentAdapter;
 import android.print.PrintAttributes;
+import android.print.PrintDocumentAdapter;
 import android.print.PrintManager;
-import android.text.method.LinkMovementMethod;
 import android.text.SpannableStringBuilder;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.URLUtil;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.commonmark.node.*;
@@ -71,6 +73,7 @@ public class Print extends Activity
     private static final int OPEN_DOCUMENT = 1;
 
     private WebView webView;
+    private ProgressBar progress;
 
     // Called when the activity is first created.
     @Override
@@ -81,6 +84,7 @@ public class Print extends Activity
         setContentView(R.layout.main);
 
         webView = findViewById(R.id.webview);
+        progress = findViewById(R.id.progress);
 
         if (webView != null)
         {
@@ -100,6 +104,9 @@ public class Print extends Activity
                 @Override
                 public void onPageFinished(WebView view, String url)
                 {
+                    // Remove progress
+                    progress.setVisibility(View.GONE);
+
                     // Get page title
                     if (URLUtil.isNetworkUrl(url) && view.getTitle() != null)
                         setTitle(view.getTitle());
@@ -250,6 +257,9 @@ public class Print extends Activity
     // readFile
     private void readFile(Uri uri)
     {
+        // Show progress
+        progress.setVisibility(View.VISIBLE);
+
         String url = uri.toString();
         if (URLUtil.isContentUrl(url))
         {
@@ -299,7 +309,9 @@ public class Print extends Activity
 
         // Create a print job with name and adapter instance
         printManager.print(jobName, printAdapter,
-                           new PrintAttributes.Builder().build());
+                           new PrintAttributes.Builder()
+                           .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
+                           .build());
     }
 
     // about
