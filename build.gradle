@@ -42,3 +42,7 @@ android {
         // abortOnError false
     }
 }
+
+dependencies {
+    implementation 'org.commonmark:commonmark:0.18.0'
+}

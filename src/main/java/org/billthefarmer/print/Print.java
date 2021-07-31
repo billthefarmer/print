@@ -37,6 +37,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 
+import org.commonmark.node.*;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -64,11 +68,9 @@ public class Print extends Activity
     public static final String ASSET_URL =
         "file:///android_asset/print.html";
 
-    private static final int OPEN_DOCUMENT   = 1;
+    private static final int OPEN_DOCUMENT = 1;
 
     private WebView webView;
-    private String htmlText;
-    private String plainText;
 
     // Called when the activity is first created.
     @Override
@@ -101,6 +103,9 @@ public class Print extends Activity
                     // Get page title
                     if (URLUtil.isNetworkUrl(url) && view.getTitle() != null)
                         setTitle(view.getTitle());
+
+                    else
+                        setTitle(R.string.appName);
 
                     if (view.canGoBack())
                         getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -191,7 +196,7 @@ public class Print extends Activity
                 finish();
             break;
 
-            // Refresh
+            // Print
         case R.id.action_print:
             print();
             break;
@@ -199,11 +204,6 @@ public class Print extends Activity
             // Open
         case R.id.action_open:
             open();
-            break;
-
-            // Share
-        case R.id.action_share:
-            share();
             break;
 
             // About
@@ -272,10 +272,15 @@ public class Print extends Activity
     // loadText
     private void loadText(String text)
     {
-        plainText = text;
-        htmlText = HTML_HEAD + text + HTML_TAIL;
+        // Use commonmark
+        Parser parser = Parser.builder().build();
+        Node document = parser.parse(text);
+        HtmlRenderer renderer = HtmlRenderer.builder().build();
+
+        String html = renderer.render(document);
+
         webView.loadDataWithBaseURL(ANDROID_ASSET,
-                                    htmlText,
+                                    HTML_HEAD + html + HTML_TAIL,
                                     TEXT_HTML, UTF_8, null);
     }
 
@@ -295,35 +300,6 @@ public class Print extends Activity
         // Create a print job with name and adapter instance
         printManager.print(jobName, printAdapter,
                            new PrintAttributes.Builder().build());
-    }
-
-    // share
-    public void share()
-    {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType(TEXT_PLAIN);
-
-        String title =
-            String.format("%s: %s", getString(R.string.appName), getTitle());
-        intent.putExtra(Intent.EXTRA_SUBJECT, title);
-        intent.putExtra(Intent.EXTRA_TITLE, title);
-
-        String url = webView.getUrl();
-        if (URLUtil.isNetworkUrl(url))
-            intent.putExtra(Intent.EXTRA_TEXT, url);
-
-        else
-        {
-            if (plainText != null)
-                intent.putExtra(Intent.EXTRA_TEXT, plainText);
-            else
-                intent.putExtra(Intent.EXTRA_TEXT, title);
-
-            if (htmlText != null)
-                intent.putExtra(Intent.EXTRA_HTML_TEXT, htmlText);
-        }
-
-        startActivity(Intent.createChooser(intent, null));
     }
 
     // about

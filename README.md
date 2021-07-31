@@ -5,6 +5,6 @@ the **Print** app in the popup dialog that appears.
 
 In the toolbar you can…
 
+* **Open** a document with the file manager
 * **Print** the document, or write a pdf file
-* **Share** the document with another app
 * **About** show the app copyright and version
