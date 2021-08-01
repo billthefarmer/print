@@ -30,6 +30,7 @@ import android.print.PrintManager;
 import android.text.SpannableStringBuilder;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -270,6 +271,39 @@ public class Print extends Activity
             readFile(uri);
             break;
         }
+    }
+
+    // dispatchKeyEvent
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event)
+    {
+        // Check Ctrl key
+        if (event.isCtrlPressed())
+        {
+            switch (event.getAction())
+            {
+            case KeyEvent.ACTION_DOWN:
+                switch (event.getKeyCode())
+                {
+                    // About
+                case KeyEvent.KEYCODE_A:
+                    about();
+                    break;
+
+                    // Open
+                case KeyEvent.KEYCODE_O:
+                    open();
+                    break;
+
+                    // Print
+                case KeyEvent.KEYCODE_P:
+                    print();
+                    break;
+                }
+            }
+        }
+
+        return super.dispatchKeyEvent(event);
     }
 
     // readFile
