@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Print</title>
+    <link>https://billthefarmer.github.io/print/</link>
+    <description>Recent content on Print</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <copyright>Copyright &amp;copy; 2021 Bill Farmer</copyright>
+    <lastBuildDate>Sun, 01 Aug 2021 12:36:06 +0100</lastBuildDate><atom:link href="https://billthefarmer.github.io/print/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Toolbar</title>
+      <link>https://billthefarmer.github.io/print/using/toolbar/</link>
+      <pubDate>Sun, 01 Aug 2021 12:34:07 +0100</pubDate>
+      
+      <guid>https://billthefarmer.github.io/print/using/toolbar/</guid>
+      <description>In the toolbar you can…
+ Open a document with the file manager Print the document, or write a pdf file About show the app copyright and version  </description>
+    </item>
+    
+    <item>
+      <title>Markdown</title>
+      <link>https://billthefarmer.github.io/print/using/markdown/</link>
+      <pubDate>Sun, 01 Aug 2021 12:36:06 +0100</pubDate>
+      
+      <guid>https://billthefarmer.github.io/print/using/markdown/</guid>
+      <description>Markdown markup in the text will be parsed and rendered by the commonmark markdown library. URLs in the text will be turned into links so they may be followed.</description>
+    </item>
+    
+  </channel>
+</rss>
