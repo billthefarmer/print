@@ -285,11 +285,6 @@ public class Print extends Activity
             case KeyEvent.ACTION_DOWN:
                 switch (event.getKeyCode())
                 {
-                    // About
-                case KeyEvent.KEYCODE_A:
-                    about();
-                    break;
-
                     // Open
                 case KeyEvent.KEYCODE_O:
                     open();
