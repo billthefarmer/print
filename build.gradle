@@ -25,8 +25,8 @@ android {
         applicationId "org.billthefarmer.print"
         minSdkVersion 21
         targetSdkVersion 28
-        versionName "1.0"
-        versionCode 1
+        versionName "1.01"
+        versionCode 101
 
         buildConfigField "long", "BUILT", System.currentTimeMillis() + "L"
     }
