@@ -12,6 +12,11 @@ In the toolbar you can…
 * **Print** the document, or write a pdf file
 * **About** show the app copyright and version
 
+Keyboard shortcuts are supported on an external keyboard…
+
+* **Ctrl+O** &ndash; **Open**
+* **Ctrl+P** &ndash; **Print**
+
 Markdown markup in the text will be parsed and rendered by the
 [commonmark](https://github.com/commonmark/commonmark-java) markdown
 library. URLs in the text will be turned into links so they may be

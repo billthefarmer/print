@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <copyright>Copyright &amp;copy; 2021 Bill Farmer</copyright>
-    <lastBuildDate>Sun, 01 Aug 2021 12:36:06 +0100</lastBuildDate><atom:link href="https://billthefarmer.github.io/print/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 10 Aug 2021 14:19:28 +0100</lastBuildDate><atom:link href="https://billthefarmer.github.io/print/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Toolbar</title>
       <link>https://billthefarmer.github.io/print/using/toolbar/</link>
@@ -16,6 +16,16 @@
       <guid>https://billthefarmer.github.io/print/using/toolbar/</guid>
       <description>In the toolbar you can…
  Open a document with the file manager Print the document, or write a pdf file About show the app copyright and version  </description>
+    </item>
+    
+    <item>
+      <title>Keyboard Shortcuts</title>
+      <link>https://billthefarmer.github.io/print/using/shortcuts/</link>
+      <pubDate>Tue, 10 Aug 2021 14:19:28 +0100</pubDate>
+      
+      <guid>https://billthefarmer.github.io/print/using/shortcuts/</guid>
+      <description>Keyboard shortcuts are supported on an external keyboard…
+ Ctrl+O – Open Ctrl+P – Print  </description>
     </item>
     
     <item>
