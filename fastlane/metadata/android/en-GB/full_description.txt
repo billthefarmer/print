@@ -1,11 +1,9 @@
-Print
-
-Print utility. To use, either open a document using the Open toolbar icon, or share a file or text in another app and choose the Print app in the popup dialog that appears.
+To use, either open a document using the <b>Open</b> toolbar icon, or share a file or text in another app and choose the <b>Print</b> app in the popup dialog that appears.
 
 In the toolbar you can…
 
-* Open a document using the file manager
-* Print the document, or write a pdf file
-* About show the app copyright and version
+* <b>Open</b> a document using the file manager
+* <b>Print</b> the document, or write a pdf file
+* <b>About</b> show the app copyright and version
 
-Markdown markup in the text will be parsed and rendered by the commonmark markdown library. URLs in the text will be turned into links so they may be followed.
+<a href='https://en.wikipedia.org/wiki/Markdown' target='_blank'>Markdown</a> markup in the text will be parsed and rendered by the <a href='https://github.com/commonmark/commonmark-java' target='_blank' rel='nofollow'>commonmark</a> markdown library. URLs in the text will be turned into links so they may be followed.
