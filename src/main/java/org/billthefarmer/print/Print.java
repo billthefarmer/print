@@ -1,3 +1,5 @@
+////////////////////////////////////////////////////////////////////////////////
+//
 //  Print - print text and HTML
 //
 //  Copyright (C) 2019	Bill Farmer
@@ -14,6 +16,8 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+////////////////////////////////////////////////////////////////////////////////
 
 package org.billthefarmer.print;
 
@@ -41,16 +45,22 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.ibm.icu.text.CharsetDetector;
+import com.ibm.icu.text.CharsetMatch;
+
 import org.commonmark.Extension;
 import org.commonmark.node.*;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 import org.commonmark.ext.autolink.AutolinkExtension;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 import java.lang.ref.WeakReference;
+
+import java.nio.charset.Charset;
 
 import java.text.DateFormat;
 
@@ -424,15 +434,23 @@ public class Print extends Activity
         protected CharSequence doInBackground(Uri uris[])
         {
             StringBuilder stringBuilder = new StringBuilder();
-            Print print = printWeakReference.get();
+            final Print print = printWeakReference.get();
             if (print == null)
                 return stringBuilder;
 
-            try (BufferedReader reader = new
-                 BufferedReader(new InputStreamReader
-                                (print.getContentResolver()
-                                 .openInputStream(uris[0]))))
+            try (BufferedInputStream in = new BufferedInputStream
+                 (print.getContentResolver().openInputStream(uris[0])))
             {
+                BufferedReader reader = new
+                    BufferedReader(new InputStreamReader(in));
+
+                CharsetMatch match = new CharsetDetector().setText(in).detect();
+                if (match != null)
+                    reader = new BufferedReader(match.getReader());
+
+                if (BuildConfig.DEBUG && match != null)
+                    Log.d(TAG, "Charset " + match.getName());
+
                 String line;
                 while ((line = reader.readLine()) != null)
                 {
