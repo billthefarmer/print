@@ -25,9 +25,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintManager;
@@ -85,6 +87,8 @@ public class Print extends Activity
     public static final String TEXT_HTML = "text/html";
     public static final String TEXT_WILD = "text/*";
 
+    public static final String PREF_MARKDOWN = "pref_markdown";
+
     public static final String ASSET_URL =
         "file:///android_asset/print.html";
 
@@ -92,12 +96,18 @@ public class Print extends Activity
 
     private WebView webView;
     private ProgressBar progress;
+    private boolean markdown = true;
 
     // Called when the activity is first created.
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(this);
+
+        markdown = preferences.getBoolean(PREF_MARKDOWN, true);
 
         setContentView(R.layout.main);
 
@@ -193,6 +203,20 @@ public class Print extends Activity
         }
     }
 
+    // onPause
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+
+        SharedPreferences preferences =
+            PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putBoolean(PREF_MARKDOWN, markdown);
+        editor.apply();
+    }
+
     // On save instance state
     @Override
     public void onSaveInstanceState(Bundle outState)
@@ -211,6 +235,15 @@ public class Print extends Activity
         // Inflate the menu; this adds items to the action bar if it
         // is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    // onPrepareOptionsMenu
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu)
+    {
+        menu.findItem(R.id.action_markdown).setChecked(markdown);
+
         return true;
     }
 
@@ -240,6 +273,11 @@ public class Print extends Activity
             // Open
         case R.id.action_open:
             open();
+            break;
+
+            // Open
+        case R.id.action_markdown:
+            markdown(item);
             break;
 
             // About
@@ -339,19 +377,26 @@ public class Print extends Activity
     // loadText
     private void loadText(String text)
     {
-        // Use commonmark
-        List<Extension> extensions =
-            Arrays.asList(AutolinkExtension.create());
-        Parser parser = Parser.builder().extensions(extensions).build();
-        Node document = parser.parse(text);
-        HtmlRenderer renderer = HtmlRenderer.builder()
-            .extensions(extensions).build();
+        if (markdown)
+        {
+            // Use commonmark
+            List<Extension> extensions =
+                Arrays.asList(AutolinkExtension.create());
+            Parser parser = Parser.builder().extensions(extensions).build();
+            Node document = parser.parse(text);
+            HtmlRenderer renderer = HtmlRenderer.builder()
+                .extensions(extensions).build();
 
-        String html = renderer.render(document);
+            String html = renderer.render(document);
 
-        webView.loadDataWithBaseURL(ANDROID_ASSET,
-                                    HTML_HEAD + html + HTML_TAIL,
-                                    TEXT_HTML, UTF_8, null);
+            webView.loadDataWithBaseURL(ANDROID_ASSET,
+                                        HTML_HEAD + html + HTML_TAIL,
+                                        TEXT_HTML, UTF_8, null);
+        }
+
+        else
+            webView.loadDataWithBaseURL(ANDROID_ASSET, text,
+                                        TEXT_HTML, UTF_8, null);
     }
 
     // print
@@ -372,6 +417,13 @@ public class Print extends Activity
                            new PrintAttributes.Builder()
                            .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
                            .build());
+    }
+
+    // markdown
+    private void markdown(MenuItem item)
+    {
+        markdown = !markdown;
+        item.setChecked(markdown);
     }
 
     // about

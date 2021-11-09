@@ -2,21 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
   <item
-        android:id="@+id/action_open"
-        android:icon="@drawable/ic_action_collection"
-        android:showAsAction="ifRoom"
-        android:title="@string/open" />
+      android:id="@+id/action_open"
+      android:icon="@drawable/ic_action_collection"
+      android:showAsAction="ifRoom"
+      android:title="@string/open" />
 
   <item
-        android:id="@+id/action_print"
-        android:icon="@drawable/ic_action_print"
-        android:showAsAction="ifRoom"
-        android:title="@string/print" />
+      android:id="@+id/action_print"
+      android:icon="@drawable/ic_action_print"
+      android:showAsAction="ifRoom"
+      android:title="@string/print" />
 
   <item
-        android:id="@+id/action_about"
-        android:icon="@drawable/ic_action_about"
-        android:showAsAction="ifRoom"
-        android:title="@string/about" />
+      android:id="@+id/action_markdown"
+      android:showAsAction="never"
+      android:checkable="true"
+      android:checked="true"
+      android:title="@string/markdown" />
+
+  <item
+      android:id="@+id/action_about"
+      android:showAsAction="never"
+      android:title="@string/about" />
 
 </menu>
