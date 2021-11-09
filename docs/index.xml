@@ -15,7 +15,8 @@
       
       <guid>https://billthefarmer.github.io/print/using/toolbar/</guid>
       <description>In the toolbar you can…
- Open a document with the file manager Print the document, or write a pdf file About show the app copyright and version  </description>
+ Open a document with the file manager Print the document, or write a pdf file  In the menu you can…
+ Markdown toggle markdown processing off and on About show the app copyright and version  </description>
     </item>
     
     <item>
@@ -34,7 +35,7 @@
       <pubDate>Sun, 01 Aug 2021 12:36:06 +0100</pubDate>
       
       <guid>https://billthefarmer.github.io/print/using/markdown/</guid>
-      <description>Markdown markup in the text will be parsed and rendered by the commonmark markdown library. URLs in the text will be turned into links so they may be followed.</description>
+      <description>Markdown markup in the text will be parsed and rendered, if enabled, by the commonmark markdown library. URLs in the text will be turned into links so they may be followed.</description>
     </item>
     
   </channel>
