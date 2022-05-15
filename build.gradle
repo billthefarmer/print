@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.3'
+        classpath 'com.android.tools.build:gradle:7.2.0'
     }
 }
 
@@ -44,6 +44,8 @@ android {
 }
 
 dependencies {
-    implementation 'org.commonmark:commonmark:0.18.0'
-    implementation 'org.commonmark:commonmark-ext-autolink:0.18.0'
+    implementation 'org.commonmark:commonmark:0.18.2'
+    implementation 'org.commonmark:commonmark-ext-autolink:0.18.2'
+    implementation 'org.commonmark:commonmark-ext-gfm-tables:0.18.2'
+    implementation 'org.commonmark:commonmark-ext-task-list-items:0.18.2'
 }

@@ -55,6 +55,8 @@ import org.commonmark.node.*;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 import org.commonmark.ext.autolink.AutolinkExtension;
+import org.commonmark.ext.gfm.tables.TablesExtension;
+import org.commonmark.ext.task.list.items.TaskListItemsExtension;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -381,7 +383,9 @@ public class Print extends Activity
         {
             // Use commonmark
             List<Extension> extensions =
-                Arrays.asList(AutolinkExtension.create());
+                Arrays.asList(TablesExtension.create(),
+                              AutolinkExtension.create(),
+                              TaskListItemsExtension.create());
             Parser parser = Parser.builder().extensions(extensions).build();
             Node document = parser.parse(text);
             HtmlRenderer renderer = HtmlRenderer.builder()
