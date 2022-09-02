@@ -198,8 +198,8 @@ public class Print extends Activity
                     }
                     break;
                 }
-                    default:
-                        webView.loadUrl(ASSET_URL);
+                default:
+                    webView.loadUrl(ASSET_URL);
                 }
             }
         }

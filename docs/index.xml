@@ -6,7 +6,7 @@
     <description>Recent content on Print</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <copyright>Copyright &amp;copy; 2021 Bill Farmer</copyright>
+    <copyright>Copyright &amp;copy; 2006 Bill Farmer</copyright>
     <lastBuildDate>Tue, 10 Aug 2021 14:19:28 +0100</lastBuildDate><atom:link href="https://billthefarmer.github.io/print/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Toolbar</title>
@@ -15,8 +15,8 @@
       
       <guid>https://billthefarmer.github.io/print/using/toolbar/</guid>
       <description>In the toolbar you can…
- Open a document with the file manager Print the document, or write a pdf file  In the menu you can…
- Markdown toggle markdown processing off and on About show the app copyright and version  </description>
+Open a document with the file manager Print the document, or write a pdf file In the menu you can…
+Markdown toggle markdown processing off and on About show the app copyright and version </description>
     </item>
     
     <item>
@@ -26,7 +26,7 @@
       
       <guid>https://billthefarmer.github.io/print/using/shortcuts/</guid>
       <description>Keyboard shortcuts are supported on an external keyboard…
- Ctrl+O – Open Ctrl+P – Print  </description>
+Ctrl+O – Open Ctrl+P – Print </description>
     </item>
     
     <item>
