@@ -35,7 +35,7 @@ Ctrl+O – Open Ctrl+P – Print </description>
       <pubDate>Sun, 01 Aug 2021 12:36:06 +0100</pubDate>
       
       <guid>https://billthefarmer.github.io/print/using/markdown/</guid>
-      <description>Markdown markup in the text will be parsed and rendered, if enabled, by the commonmark markdown library. URLs in the text will be turned into links so they may be followed.</description>
+      <description>Markdown markup in the text will be parsed and rendered, if enabled, by the commonmark markdown library. URLs in the text will be turned into links so they may be followed. Markdown subscript, superscript, underscore, strikethrough, tables and task lists are supported.</description>
     </item>
     
   </channel>
