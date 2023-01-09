@@ -1,0 +1,2 @@
+ * Add markdown sub/superscript, strikethrough extensions
+ * Remove charset detector
