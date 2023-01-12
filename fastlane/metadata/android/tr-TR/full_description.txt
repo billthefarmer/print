@@ -6,4 +6,4 @@ Araç çubuğunda şunları yapabilirsiniz…
 * <b>Yazdır</b> belge yazdırın veya,bir pdf dosyası 
 * <b>Hakkında</b> uygulamanın telif hakkını ve sürümünü göster
 
-<a href='https://en.wikipedia.org/wiki/Markdown' target='_blank'>Markdown</a> markup in the text will be parsed and rendered by the <a href='https://github.com/commonmark/commonmark-java' target='_blank' rel='nofollow'>commonmark</a> markdown library. URLs in the text will be turned into links so they may be followed. Markdown tables and task lists are supported.
+<a href='https://tr.wikipedia.org/wiki/Markdown' target='_blank'> metindeki Markdown işaretlemesi, <a href='https://github.com/commonmark/commonmark-java' target='_blank> rel='nofollow'commonmark markdown kitaplığı tarafından ayrıştırılır ve işlenir.</a> Metindeki URL'ler, takip edilebilmeleri için bağlantılara dönüştürülür. Markdown tabloları ve görev listeleri desteklenir.
