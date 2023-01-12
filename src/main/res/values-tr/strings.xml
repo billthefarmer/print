@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string name="appName">Print</string>
+
+  <string name="about">About</string>
+  <string name="open">Open</string>
+  <string name="print">Print</string>
+  <string name="markdown">Markdown</string>
+  <string name="version" formatted="false"><a
+  href="https://github.com/billthefarmer/print/releases/latest">%s</a>\n\nBuilt
+  %s\n\nCopyright \u00A9 2021 <a
+  href="https://github.com/billthefarmer">Bill Farmer</a>\n\nLicence
+  <a href="https://www.gnu.org/licenses/gpl.txt">GNU GPLv3</a>
+  </string>
+
+</resources>
