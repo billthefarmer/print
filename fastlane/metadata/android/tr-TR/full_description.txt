@@ -1,0 +1,9 @@
+Kullanmak için, <b>Aç</b> araç çubuğu simgesini kullanarak bir belge açın veya başka bir uygulamada bir dosya veya metin paylaşın ve görüntülenen açılır iletişim kutusunda <b>Yazdır</b> uygulamasını seçin.
+
+Araç çubuğunda şunları yapabilirsiniz…
+
+* <b>Açık</b> dosya yöneticisini kullanarak bir belge açma
+* <b>Yazdır</b> belge yazdırın veya,bir pdf dosyası 
+* <b>Hakkında</b> uygulamanın telif hakkını ve sürümünü göster
+
+<a href='https://tr.wikipedia.org/wiki/Markdown' target='_blank'> metindeki Markdown işaretlemesi, <a href='https://github.com/commonmark/commonmark-java' target='_blank> rel='nofollow'commonmark markdown kitaplığı tarafından ayrıştırılır ve işlenir.</a> Metindeki URL'ler, takip edilebilmeleri için bağlantılara dönüştürülür. Markdown tabloları ve görev listeleri desteklenir.
