@@ -55,7 +55,7 @@ import org.commonmark.ext.ins.InsExtension;
 import org.commonmark.ext.sub.SubExtension;
 import org.commonmark.ext.sup.SupExtension;
 import org.commonmark.ext.task.list.items.TaskListItemsExtension;
-import org.commonmark.node.*;
+import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 
