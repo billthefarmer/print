@@ -72,6 +72,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@SuppressWarnings("deprecation")
 public class Print extends Activity
 {
     public static final String TAG = "Print";
