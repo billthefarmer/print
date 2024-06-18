@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body style="background: cornsilk;">
+    <h2><img src="ic_launcher.png" /> Печать</h2>
+
+    <p>
+      &emsp;Это «ПО» для печати. Как она работает? Нажмите на значок <strong>Открыть</strong> на панели инструментов, затем выберите Документ либо из другого приложения Поделиться файлам или текстом с программой <a href="https://github.com/billthefarmer/print">
+        <strong>Печать</strong></a>.  В появившемся диалоге.
+    </p>
+    <p>
+      &emsp;В панели инструментов вы можете...
+    </p>
+    <ul>
+      <li><strong>Открыть</strong> документ с помощью проводника.</li>
+      <li><strong>Печатать</strong> документ или сохранить как pdf-файл.</li>
+    </ul>
+    <p>
+      &emsp;В меню вы можете...
+    </p>
+    <ul>
+      <li><strong>Md-разметка.</strong> Отключить или включить обработку.</li>
+      <li><strong>О программе.</strong> Просмотр об владельце и версии «ПО»</li>
+    </ul>
+    <p>
+      &emsp;Markdown-разметка в тексте будет разобрана и отображена, если она включена библиотекой разметки от
+      <a href="https://github.com/commonmark/commonmark-java">CommonMark</a>.
+      Markdown поддерживает подстрочные и надстрочные уровни, подчеркивание, зачеркивание, таблицы и списки задач.
+    </p>
+    <p>
+      &emsp;Владелец &copy;
+      2023 <a href="https://github.com/billthefarmer">Билл Фармер</a>.
+    </p>
+    <p>
+    <i>    	
+      &emsp;Русский перевод 16.06.2024-г. от 
+      <a href="https://github.com/Xapitonov">Xapitonov</a>.
+    </i>
+    </p>
+  </body>
+</html>
